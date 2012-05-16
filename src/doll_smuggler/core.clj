@@ -42,8 +42,14 @@
   "Calculates the keep matrix for the optimal solution."
   [dolls weight-limit]
   
-  (loop [solutions [] row [] i 0 w 0]
+  (loop [solutions [] row [] i -1 w 1]
         (if (= i (count dolls))
             keep
             (let [doll-i (nth dolls i)]
-                 )
+                 (when (<= w weight-limit)
+                       (recur (conj solutions row) [] (inc i) 1))
+                 (when (< i 0)
+                       (recur [] (conj row [0 0]) i (inc w)))
+                 (if (< w (:weight doll-i))
+                     (recur solutions (conj [(first (nth (nth solutions i) w)) 0]) i (inc w))
+                     )))))
