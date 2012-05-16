@@ -39,6 +39,11 @@
 
 
 (defn calculate-keep-matrix
+  "Calculates the keep matrix for the optimal solution."
   [dolls weight-limit]
+  
   (loop [solutions [] keep [] row [] i 0 w 0]
-        )
+        (if (= i (count dolls))
+            keep
+            (let [doll-i (nth dolls i)]
+                 )
