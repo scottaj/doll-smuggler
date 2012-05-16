@@ -45,8 +45,8 @@
                                        (if (> (:value doll-i) (first (nth (nth solutions i) (- w 1))))
                                            (recur solutions (conj row [(:value doll-i) 1]) i (inc w))
                                            (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w)))
-                                       (let [cv (+ (:value doll-i) (first (nth (nth solutions (- i 1)) (- (- w (:weight doll-i)) 1))))]
-                                            (if (> (first (nth (nth solutions i) w)) cv)
+                                       (let [cv (+ (:value doll-i) (first (nth (nth solutions i) (- (- w (:weight doll-i)) 1))))]
+                                            (if (> (first (nth (nth solutions i) (- w 1))) cv)
                                                 (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
                                                 (recur solutions (conj row [cv 1]) i (inc w))))))))))))
 
