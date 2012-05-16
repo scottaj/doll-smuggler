@@ -28,10 +28,6 @@
   [dolls weight-limit]
   
   (loop [solutions [] row [] i -1 w 1]
-        (println "w: " w)
-        (println "i: " i)
-        (println "row: " row)
-        (println "Solution: " solutions)
         (if (= i (count dolls))
             solutions
                 (if (> w weight-limit)
