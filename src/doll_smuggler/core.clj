@@ -11,8 +11,10 @@
 
 
 (defn load-dolls
-  ""
+  "Takes a CSV data file and creates a vector of Doll records from it.
+  **NOTE** does no error checking on the file."
   [file-name]
+  
   (let [doll-data (split-lines (slurp file-name))]
       (loop [payload [] i 0]
             (if (= i (count doll-data))
@@ -25,9 +27,18 @@
 
 
 (defn pack-dolls
+  "Selects the optimal subset of dolls from the given set with the given weight constraint."
   [dolls weight-limit]
+  
   (cond
-    (= (count dolls 0)) '()
-    (= weight-limit 0) '()
-    true ()))
+    (= (count dolls 0)) []
+    (= weight-limit 0) []
+    true (let [keep (calculate-keep-matrix dolls weight-limit)]
+              ))))
 
+
+
+(defn calculate-keep-matrix
+  [dolls weight-limit]
+  (loop [solutions [] keep [] row [] i 0 w 0]
+        )
