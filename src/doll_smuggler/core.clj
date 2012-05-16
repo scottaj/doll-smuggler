@@ -28,17 +28,19 @@
   [dolls weight-limit]
   
   (loop [solutions [] row [] i -1 w 1]
-        (println "w" w)
-        (println "i" i)
+        (println "w: " w)
+        (println "i: " i)
+        (println "row: " row)
+        (println "Solution: " solutions)
         (if (= i (count dolls))
             solutions
-                (if (<= w weight-limit)
+                (if (> w weight-limit)
                       (recur (conj solutions row) [] (inc i) 1)
                       (if (< i 0)
-                          (recur solutions (conj row [0 0]) i (inc w))
+                          (recur solutions (conj row [0 0]) i (inc w)) ;through here working!
                           (let [doll-i (nth dolls i)]
                                (if (< w (:weight doll-i))
-                                   (recur solutions (conj [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
+                                   (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
                                    (if (= w (:weight doll-i))
                                        (if (> (:value doll-i) (first (nth (nth solutions i) (- w 1))))
                                            (recur solutions (conj row [(:value doll-i) 1]) i (inc w))
