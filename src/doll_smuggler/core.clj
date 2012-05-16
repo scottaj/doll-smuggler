@@ -33,7 +33,7 @@
                 (if (> w weight-limit)
                       (recur (conj solutions row) [] (inc i) 1)
                       (if (< i 0)
-                          (recur solutions (conj row [0 0]) i (inc w)) ;through here working!
+                          (recur solutions (conj row [0 0]) i (inc w)) 
                           (let [doll-i (nth dolls i)]
                                (if (< w (:weight doll-i))
                                    (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
@@ -59,10 +59,10 @@
     
     true (let [solutions (calculate-solution-matrix dolls weight-limit)]
               (loop [handbag [] w (- weight-limit 1) i (- (count solutions) 1)]
-                    (if (or (= i 0) (= w 0))
+                    (if (= i 0)
                         handbag
                         (if (= (last (nth (nth solutions i) w)) 1)
-                            (recur (conj handbag (nth dolls i)) (- w (:weight (nth dolls i))) (dec i))
+                            (recur (conj handbag (nth dolls (- i 1))) (- w (:weight (nth dolls (- i 1)))) (dec i))
                             (recur handbag w (dec i))))))))
 
 
