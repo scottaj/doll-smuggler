@@ -69,4 +69,8 @@
 (defn main
   [file-name weight-limit]
   
-  (pack-dolls (load-dolls file-name) weight-limit))
+  (println "The payload for the day is:")
+  (let [handbag (pack-dolls (load-dolls file-name) weight-limit)]
+       (doseq [doll handbag]
+              (println (:id doll)))
+       handbag))
