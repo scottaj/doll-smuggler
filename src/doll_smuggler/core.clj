@@ -2,7 +2,7 @@
     :use [clojure.string])
 
 
-(defrecord Doll [name weight value])
+(defrecord Doll [id weight value])
 
 (defn main
   
@@ -11,6 +11,7 @@
 
 
 (defn load-dolls
+  ""
   [file-name]
   (let [doll-data (split-lines (slurp file-name))]
       (loop [payload [] i 0]
@@ -25,4 +26,8 @@
 
 (defn pack-dolls
   [dolls weight-limit]
-  )
+  (cond
+    (= (count dolls 0)) '()
+    (= weight-limit 0) '()
+    true ()))
+
