@@ -27,24 +27,20 @@
   "Calculates the matrix for the optimal solution."
   [dolls weight-limit]
   
-  (loop [solutions [] row [] i -1 w 1]
+  (loop [solutions [] row [] i -1 w 0]
         (if (= i (count dolls))
             solutions
                 (if (> w weight-limit)
-                      (recur (conj solutions row) [] (inc i) 1)
+                      (recur (conj solutions row) [] (inc i) 0)
                       (if (< i 0)
                           (recur solutions (conj row [0 0]) i (inc w)) 
                           (let [doll-i (nth dolls i)]
                                (if (< w (:weight doll-i))
-                                   (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
-                                   (if (= w (:weight doll-i))
-                                       (if (> (:value doll-i) (first (nth (nth solutions i) (- w 1))))
-                                           (recur solutions (conj row [(:value doll-i) 1]) i (inc w))
-                                           (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w)))
-                                       (let [cv (+ (:value doll-i) (first (nth (nth solutions i) (- (- w (:weight doll-i)) 1))))]
-                                            (if (> (first (nth (nth solutions i) (- w 1))) cv)
-                                                (recur solutions (conj row [(first (nth (nth solutions i) (- w 1))) 0]) i (inc w))
-                                                (recur solutions (conj row [cv 1]) i (inc w))))))))))))
+                                   (recur solutions (conj row [(first (nth (nth solutions i) w)) 0]) i (inc w))
+                                   (let [cv (+ (:value doll-i) (first (nth (nth solutions i) (- w (:weight doll-i)))))]
+                                        (if (> (first (nth (nth solutions i) w)) cv)
+                                            (recur solutions (conj row [(first (nth (nth solutions i) w)) 0]) i (inc w))
+                                            (recur solutions (conj row [cv 1]) i (inc w)))))))))))
 
 
 
