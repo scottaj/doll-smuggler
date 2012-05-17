@@ -66,7 +66,7 @@
                             (recur handbag w (dec i))))))))
 
 
-(defn main
+(defn -main
   [file-name weight-limit]
   
   (println "The payload for the day is:")

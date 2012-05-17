@@ -4,14 +4,14 @@
 
 (deftest zero-weight-handbag
   (testing "A handbag that can hold nothing."
-           (is (= [] (main "./dolldata1" 0)))
-           (is (= [] (main "./dolldata2" 0)))))
+           (is (= [] (-main "./dolldata1" 0)))
+           (is (= [] (-main "./dolldata2" 0)))))
 
 
 
 (deftest really-big-handbag
   (testing "A handbag that can hold everything."
-           (is (= [(Doll.luke 9 150)
+           (is (= (reverse [(Doll.luke 9 150)
                    (Doll. anthony 13 35)
                    (Doll. candice 153 200)
                    (Doll. dorothy 50 160)
@@ -32,10 +32,10 @@
                    (Doll. eddie 7 20)
                    (Doll. tory 18 12)
                    (Doll. sally 4 50)
-                   (Doll. babe 30 10)] (main "./dolldata1" 10000)))
-           (is (= [(Doll. uno 3 5)
+                   (Doll. babe 30 10)]) (-main "./dolldata1" 10000)))
+           (is (= (reverse [(Doll. uno 3 5)
                    (Doll. dos 2 3)
-                   (Doll. tres 1 4)] (main "./dolldata2" 10000)))))
+                   (Doll. tres 1 4)]) (-main "./dolldata2" 10000)))))
 
 
 
@@ -48,8 +48,8 @@
 
 (deftest pick-one
   (testing "Picking for a bag that can only fit one item"
-           (is (= [(Doll. sally 4 50)] (main "./dolldata1" 8)))
-           (is (= [(Doll. tres 1 4)] (main "./dolldata2" 2)))))
+           (is (= [(Doll. sally 4 50)] (-main "./dolldata1" 8)))
+           (is (= [(Doll. tres 1 4)] (-main "./dolldata2" 2)))))
 
 
 
@@ -66,6 +66,6 @@
                    (Doll. dusty 43 75)
                    (Doll. grumpy 22 80)
                    (Doll. eddie 7 20)
-                   (Doll. sally 4 50)]) (main "./dolldata1" 400)))
+                   (Doll. sally 4 50)]) (-main "./dolldata1" 400)))
            (is (= (reverse [(Doll. uno 3 5)
-                   (Doll. tres 1 4)]) (main "./dolldata2" 5)))))
+                   (Doll. tres 1 4)]) (-main "./dolldata2" 5)))))
