@@ -34,3 +34,9 @@
            (is (= [(Doll. uno 3 5)
                    (Doll. dos 2 3)
                    (Doll. tres 1 4)] (main "./dolldata2" 10000)))))
+
+
+(deftest empty-set
+  (testing "Packing a bag when you have no dolls."
+    (is (= [] (pack-dolls [] 100)))
+    (is (= [] (pack-dolls [] 0)))))
