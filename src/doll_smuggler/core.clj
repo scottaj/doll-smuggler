@@ -40,12 +40,12 @@
                       (recur (conj solutions row) [] (inc i) 0)
                       (if (< i 0)
                           (recur solutions (conj row [0 0]) i (inc w)) 
-                          (let [doll-i (nth dolls i)]
+                          (let [doll-i (nth dolls i) value-above (matrix-select solutions w i)]
                                (if (< w (:weight doll-i))
-                                   (recur solutions (conj row [(first (matrix-select solutions w i)) 0]) i (inc w))
+                                   (recur solutions (conj row [(first value-above) 0]) i (inc w))
                                    (let [cv (+ (:value doll-i) (first (matrix-select solutions (- w (:weight doll-i)) i)))]
-                                        (if (> (first (matrix-select solutions w i)) cv)
-                                            (recur solutions (conj row [(first (matrix-select solutions w i)) 0]) i (inc w))
+                                        (if (> (first value-above) cv)
+                                            (recur solutions (conj row [(first value-above) 0]) i (inc w))
                                             (recur solutions (conj row [cv 1]) i (inc w)))))))))))
 
 
