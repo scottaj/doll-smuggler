@@ -6,7 +6,7 @@
 
 
 (defmacro matrix-select
-  ""
+  "Generate code to select a row and column in a 2-d structure."
   [matrix x y]
   `(nth (nth ~matrix ~y ) ~x ))
 
