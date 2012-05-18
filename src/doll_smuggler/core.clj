@@ -5,6 +5,12 @@
 (defrecord Doll [id weight value])
 
 
+(defmacro matrix-select
+  ""
+  [matrix x y]
+  `(nth (nth ~matrix ~y ) ~x ))
+
+
 
 (defn load-dolls
   "Takes a CSV data file and creates a vector of Doll records from it.
@@ -36,10 +42,10 @@
                           (recur solutions (conj row [0 0]) i (inc w)) 
                           (let [doll-i (nth dolls i)]
                                (if (< w (:weight doll-i))
-                                   (recur solutions (conj row [(first (nth (nth solutions i) w)) 0]) i (inc w))
-                                   (let [cv (+ (:value doll-i) (first (nth (nth solutions i) (- w (:weight doll-i)))))]
-                                        (if (> (first (nth (nth solutions i) w)) cv)
-                                            (recur solutions (conj row [(first (nth (nth solutions i) w)) 0]) i (inc w))
+                                   (recur solutions (conj row [(first (matrix-select solutions w i)) 0]) i (inc w))
+                                   (let [cv (+ (:value doll-i) (first (matrix-select solutions (- w (:weight doll-i)) i)))]
+                                        (if (> (first (matrix-select solutions w i)) cv)
+                                            (recur solutions (conj row [(first (matrix-select solutions w i)) 0]) i (inc w))
                                             (recur solutions (conj row [cv 1]) i (inc w)))))))))))
 
 
@@ -57,7 +63,7 @@
               (loop [handbag [] w (- weight-limit 1) i (- (count solutions) 1)]
                     (if (= i 0)
                         handbag
-                        (if (= (last (nth (nth solutions i) w)) 1)
+                        (if (= (last (matrix-select solutions w i)) 1)
                             (recur (conj handbag (nth dolls (- i 1))) (- w (:weight (nth dolls (- i 1)))) (dec i))
                             (recur handbag w (dec i))))))))
 
