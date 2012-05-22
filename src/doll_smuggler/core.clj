@@ -1,7 +1,5 @@
 (ns doll-smuggler.core
-    :use [clojure.string :only [split split-lines]])
-; (use '[clojure.string :only [split split-lines]])
-; (use '[clojure.test])
+    (:use [clojure.string :only [split split-lines]]))
 
 (defrecord Doll [id weight value])
 

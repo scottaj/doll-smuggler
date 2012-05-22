@@ -1,6 +1,6 @@
 (ns doll-smuggler.test.core
-  (:use [doll-smuggler.core])
-  (:use [clojure.test]))
+  (:use doll-smuggler.core)
+  (:use clojure.test))
 
 (deftest zero-weight-handbag
   (testing "A handbag that can hold nothing."
