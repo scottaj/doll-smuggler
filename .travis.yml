@@ -1,1 +1,11 @@
 language: clojure
+
+notifications:
+  email:
+    - al.scott@atomicobject.com.com
+  on_success: always # default: change
+  on_failure: always # default: always
+
+branches:
+  only:
+    - master
