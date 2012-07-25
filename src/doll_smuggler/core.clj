@@ -21,15 +21,18 @@
       (if (= i (count doll-data))
         payload
         (let [line (split (nth doll-data i) #",")]
-          (recur (conj payload (Doll. (first line) 
-                                      (Integer/parseInt (second line)) 
-                                      (Integer/parseInt (last line))))
+          (recur (conj payload (Doll. (first line) ; ID
+                                      (Integer/parseInt (second line)) ; Weight
+                                      (Integer/parseInt (last line)))) ; Value
                  (inc i)))))))
 
 
 
 (defn calculate-solution-matrix
-  "Calculates the matrix for the optimal solution."
+  "Calculates the matrix for the optimal solution.
+  Uses a dynamic programming approach by recursivly building a matrix
+  of possible values for a given weight and subset while reusing previously
+  calculated values."
   [dolls weight-limit]
 
   (loop [solutions [] row [] i -1 w 0]
@@ -50,7 +53,8 @@
 
 
 (defn pack-dolls
-  "Selects the optimal subset of dolls from the given set with the given weight constraint."
+  "Selects the optimal subset of dolls from the given set with the given weight constraint.
+  Uses a calculated matrix which can be quickly traversed to find the best set of dolls."
   [dolls weight-limit]
   
   (cond
@@ -68,6 +72,7 @@
 
 
 (defn -main
+  "Solution adapted from the explanation in this video: http://www.youtube.com/watch?v=EH6h7WA7sDw"
   [file-name weight-limit]
   
   (println "The payload for the day is:")
